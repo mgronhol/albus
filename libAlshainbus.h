@@ -21,7 +21,7 @@
 
 #define ABUS_MSG_CONT			0
 #define ABUS_MSG_DONE			1
-#define ABUS_MSG_NO_FOR_US		2
+#define ABUS_MSG_NOT_FOR_US		2
 
 #define ABUS_MSG_OK				0
 #define ABUS_MSG_INVALID		1

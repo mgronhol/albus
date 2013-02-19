@@ -14,7 +14,7 @@ void abus_reset( abus_t *conn ){
 int abus_read( abus_t *conn, unsigned char byte ){
 	if( conn->pos == 0 ){
 		if( byte != 0 && byte != conn->node_id ){
-			return ABUS_MSG_NO_FOR_US;
+			return ABUS_MSG_NOT_FOR_US;
 			} 
 		}
 	conn->buffer[ conn->pos ] = byte;
