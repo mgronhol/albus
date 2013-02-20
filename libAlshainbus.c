@@ -1,5 +1,7 @@
 #include "libAlshainbus.h"
 
+#include <stdio.h>
+
 void abus_init( abus_t *conn, uint8_t id ){
 	conn->node_id = id;
 	conn->size = 0;
@@ -86,7 +88,8 @@ uint8_t abus_compute_checksum( abus_t *conn ){
 	for( i = 0 ; i < conn->size + 4 ; ++i ){
 		out ^= conn->buffer[i];
 		}
-	
+		
+	return out;
 	}
 
 unsigned char* abus_get_buffer( abus_t *conn ){
@@ -95,9 +98,11 @@ unsigned char* abus_get_buffer( abus_t *conn ){
 
 uint8_t abus_prepare( abus_t *conn ){
 	conn->buffer[conn->size + 5] = abus_compute_checksum( conn );
+	conn->buffer[3] = conn->size;
 	return conn->size + 6;
 	}
 
+/*
 #include <stdio.h>
 
 
@@ -131,3 +136,4 @@ int main(){
 	
 	return 0;
 	}
+*/
