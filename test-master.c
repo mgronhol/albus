@@ -25,6 +25,14 @@ int main(){
 	size = abus_prepare( &conn );
 	
 	buf = abus_get_buffer( &conn );
+
+	{
+		int i;
+		for( i = 0 ; i < size ; ++i ){
+			printf( "%02x ", buf[i] );
+			}
+		printf( "\n" );
+		}
 	
 	abus_tcp_send( &bus, buf, size );
 	

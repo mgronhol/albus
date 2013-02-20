@@ -23,8 +23,8 @@
 #define ABUS_MSG_DONE			1
 #define ABUS_MSG_NOT_FOR_US		2
 
-#define ABUS_MSG_OK				0
-#define ABUS_MSG_INVALID		1
+#define ABUS_MSG_OK				4
+#define ABUS_MSG_INVALID		5
 
 #define ABUS_OPT_REQUEST		0
 #define ABUS_OPT_RESPONSE		1

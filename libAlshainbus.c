@@ -31,7 +31,7 @@ int abus_read( abus_t *conn, unsigned char byte ){
 		return ABUS_MSG_INVALID;
 		}
 	
-	if( conn->pos > 5 + conn->size ){
+	if( conn->pos > 4 + conn->size ){
 		uint8_t cs = abus_compute_checksum( conn );
 		if( cs == conn->buffer[conn->pos-1] ){
 			return ABUS_MSG_DONE;
@@ -80,6 +80,7 @@ void abus_set_params( abus_t *conn, unsigned char *params, uint8_t size ){
 		conn->buffer[4+i] = params[i];
 		}
 	conn->size = size;
+	conn->buffer[3] = conn->size;
 	}
 
 uint8_t abus_compute_checksum( abus_t *conn ){
@@ -97,9 +98,9 @@ unsigned char* abus_get_buffer( abus_t *conn ){
 	}
 
 uint8_t abus_prepare( abus_t *conn ){
-	conn->buffer[conn->size + 5] = abus_compute_checksum( conn );
-	conn->buffer[3] = conn->size;
-	return conn->size + 6;
+	conn->buffer[conn->size + 4] = abus_compute_checksum( conn );
+	
+	return conn->size + 5;
 	}
 
 /*
