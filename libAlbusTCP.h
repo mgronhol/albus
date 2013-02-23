@@ -20,13 +20,13 @@ typedef struct {
     struct hostent *server;
     unsigned char buffer[256];
     
-	} abus_tcp_t;
+	} albus_tcp_t;
 
 
-void abus_tcp_connect( abus_tcp_t *conn );
-int abus_tcp_recv( abus_tcp_t *conn );
-int abus_tcp_send( abus_tcp_t *conn, unsigned char *buffer, uint8_t size );
-void abus_tcp_disconnect( abus_tcp_t *conn );
+void albus_tcp_connect( albus_tcp_t *conn );
+int albus_tcp_recv( albus_tcp_t *conn );
+int albus_tcp_send( albus_tcp_t *conn, unsigned char *buffer, uint8_t size );
+void albus_tcp_disconnect( albus_tcp_t *conn );
 
 
 

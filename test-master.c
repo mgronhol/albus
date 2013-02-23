@@ -7,24 +7,24 @@
 
 int main(){
 	
-	abus_t conn;
-	abus_tcp_t bus;
+	albus_t conn;
+	albus_tcp_t bus;
 	unsigned char *buf;
 	uint8_t size;
 	int done = 0;
 	
-	abus_init( &conn, 1 );
+	albus_init( &conn, 1 );
 	
-	abus_tcp_connect( &bus );
+	albus_tcp_connect( &bus );
 	
-	abus_set_recipient( &conn, 100 );
-	abus_set_flags( &conn, ABUS_OPT_REQUEST );
-	abus_set_params( &conn, NULL, 0 );
-	abus_set_function( &conn, ABUS_FUNC_IDENT );
+	albus_set_recipient( &conn, 100 );
+	albus_set_flags( &conn, ALBUS_OPT_REQUEST );
+	albus_set_params( &conn, NULL, 0 );
+	albus_set_function( &conn, ALBUS_FUNC_IDENT );
 	
-	size = abus_prepare( &conn );
+	size = albus_prepare( &conn );
 	
-	buf = abus_get_buffer( &conn );
+	buf = albus_get_buffer( &conn );
 
 	{
 		int i;
@@ -34,15 +34,15 @@ int main(){
 		printf( "\n" );
 		}
 	
-	abus_tcp_send( &bus, buf, size );
+	albus_tcp_send( &bus, buf, size );
 	
 	while( !done ){
 		int i, rc;
-		int n = abus_tcp_recv( &bus );
+		int n = albus_tcp_recv( &bus );
 		if( n > 0 ){
 			for( i = 0 ; i < n ; ++i ){
-				rc = abus_read( &conn, bus.buffer[i] );
-				if( rc == ABUS_MSG_DONE ){
+				rc = albus_read( &conn, bus.buffer[i] );
+				if( rc == ALBUS_MSG_DONE ){
 					done = 1;
 					break;
 					}
@@ -53,15 +53,15 @@ int main(){
 	{
 		int i;
 		printf( "buffer: ");
-		for( i = 0 ; i < ABUS_BUFFER_SIZE ; ++i ){
+		for( i = 0 ; i < ALBUS_BUFFER_SIZE ; ++i ){
 			printf( "%02x ", conn.buffer[i] );
 			}
 		printf( "\n\n" );
 		}
 	
-	printf( "idn: %s\n", abus_get_params( &conn ) );
-	printf( "size: %i\n", abus_get_size( &conn ) );
+	printf( "idn: %s\n", albus_get_params( &conn ) );
+	printf( "size: %i\n", albus_get_size( &conn ) );
 	
-	abus_tcp_disconnect( &bus );
+	albus_tcp_disconnect( &bus );
 	return 0;
 	}

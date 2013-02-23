@@ -8,52 +8,52 @@ const char IDENT[] = "TC-001";
 
 int main(){
 	
-	abus_t conn;
-	abus_tcp_t bus;
+	albus_t conn;
+	albus_tcp_t bus;
 	unsigned char *buf;
 	uint8_t size;
 	int done = 0;
 	
-	abus_init( &conn, 100 );
+	albus_init( &conn, 100 );
 	
-	abus_tcp_connect( &bus );
+	albus_tcp_connect( &bus );
 	
 	while( 1 ){
-		abus_reset( &conn );
+		albus_reset( &conn );
 		done = 0;
 		while( !done ){
 			int i, rc;
-			int n = abus_tcp_recv( &bus );
+			int n = albus_tcp_recv( &bus );
 			if( n > 0 ){
 				for( i = 0 ; i < n ; ++i ){
-					rc = abus_read( &conn, bus.buffer[i] );
-					if( rc == ABUS_MSG_DONE || rc == ABUS_MSG_INVALID ){
+					rc = albus_read( &conn, bus.buffer[i] );
+					if( rc == ALBUS_MSG_DONE || rc == ALBUS_MSG_INVALID ){
 						done = 1;
 						break;
 						}
 					}
 				}
 			
-			if( rc == ABUS_MSG_INVALID ){
+			if( rc == ALBUS_MSG_INVALID ){
 				done = 0;
-				abus_reset( &conn );
+				albus_reset( &conn );
 				}
 			
 			}
 		
-		if( abus_get_recipient( &conn ) != ABUS_NODE_BROADCAST && abus_get_recipient( &conn ) != conn.node_id ){
+		if( albus_get_recipient( &conn ) != ALBUS_NODE_BROADCAST && albus_get_recipient( &conn ) != conn.node_id ){
 			continue;
 			}
 		
-		switch( abus_get_function( &conn ) ){
-			case ABUS_FUNC_IDENT:
+		switch( albus_get_function( &conn ) ){
+			case ALBUS_FUNC_IDENT:
 				{
-				abus_set_recipient( &conn, ABUS_NODE_MASTER );
-				abus_set_flags( &conn, ABUS_OPT_RESPONSE );
-				abus_set_params( &conn, (unsigned char*)IDENT, strlen( IDENT ) );
+				albus_set_recipient( &conn, ALBUS_NODE_MASTER );
+				albus_set_flags( &conn, ALBUS_OPT_RESPONSE );
+				albus_set_params( &conn, (unsigned char*)IDENT, strlen( IDENT ) );
 				
-				size = abus_prepare( &conn );
-				buf = abus_get_buffer( &conn );
+				size = albus_prepare( &conn );
+				buf = albus_get_buffer( &conn );
 				
 				{
 					int z;
@@ -64,7 +64,7 @@ int main(){
 					printf( "\n\n" );
 					}
 				
-				abus_tcp_send( &bus, buf, size );
+				albus_tcp_send( &bus, buf, size );
 				
 				}
 			break;
@@ -74,7 +74,7 @@ int main(){
 		}
 	
 	
-	abus_tcp_disconnect( &bus );
+	albus_tcp_disconnect( &bus );
 
 	return 0;
 	}

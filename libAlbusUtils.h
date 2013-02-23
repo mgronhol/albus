@@ -4,29 +4,28 @@
 #include "libAlshainbus.h"
 #include "libAlbusTCP.h"
 
-#define ABUS_RETVAL_EMPTY	-1
-#define ABUS_RETVAL_OK		0
+#define ALBUS_RETVAL_EMPTY	-1
+#define ALBUS_RETVAL_OK		0
 
 
-typedef int (*abus_callback_t)( abus_t *, void * );
+typedef int (*albus_callback_t)( albus_t *, void * );
 
 
 typedef struct {
-	abus_t conn;
-	abus_tcp_t bus;
-	abus_callback_t callback;
+	albus_t conn;
+	albus_tcp_t bus;
+	albus_callback_t callback;
 	
 	void *args;
 	
 	uint8_t state;
-	} abus_loop_t;
+	} albus_loop_t;
 
 
-void abus_loop_init( abus_loop_t *loop, uint8_t id, abus_callback_t cb, void *args );
+void albus_loop_init( albus_loop_t *loop, uint8_t id, albus_callback_t cb, void *args );
 
-void abus_loop_infinite( abus_loop_t *loop );
+void albus_loop_infinite( albus_loop_t *loop );
 
-void abus_loop_single( abus_loop_t *loop );
-
+void albus_loop_single( albus_loop_t *loop );
 
 #endif
