@@ -1,8 +1,8 @@
-#ifndef _LIBABUSUTILSH_H_
-#define _LIBABUSUTILSH_H_
+#ifndef _LIBALBUSUTILSH_H_
+#define _LIBALBUSUTILSH_H_
 
 #include "libAlshainbus.h"
-#include "libAbusTCP.h"
+#include "libAlbusTCP.h"
 
 #define ABUS_RETVAL_EMPTY	-1
 #define ABUS_RETVAL_OK		0
